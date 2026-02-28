@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Datos operativos (no subir)
+registros.json
+trazabilidad.json
+mesas.json
+
+# Node
+node_modules/
+dist/
+
+# Sistema
+.DS_Store
+*.log
