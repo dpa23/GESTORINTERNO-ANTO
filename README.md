@@ -154,3 +154,8 @@ Actualizar utils.py con lógica de mesas y trazabilidad
 Configurar Raspberry como punto de acceso
 Configurar systemd para arranque automático
 Fase 2: recetas.json para MRP
+## Usar laptops como servidor
+### deploy.sh
+Despliaga los recursos necesarios para el programa como ejecutable para que la computadora linux funcione como servidor
+### deploy.bat
+Es el mismo funcionamiento que el deploy.sh pero en windows, se recomienda nunca usar un dispositivo windows como servidor al tener subprocesos cargados.
