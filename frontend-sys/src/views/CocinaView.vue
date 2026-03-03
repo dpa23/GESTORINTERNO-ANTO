@@ -5,7 +5,18 @@
     <div v-if="store.cargando">Cargando menú...</div>
     <div v-if="store.error" class="error">{{ store.error }}</div>
 
-    <div v-for="cat in store.categorias" :key="cat" class="categoria">
+    <!-- Filtro por categoría -->
+    <div class="filtro-categoria">
+      <label>Categoría:</label>
+      <select v-model="categoriaFiltro">
+        <option value="">Todas</option>
+        <option v-for="cat in store.categorias" :key="cat" :value="cat">
+          {{ cat.replaceAll("_", " ") }}
+        </option>
+      </select>
+    </div>
+
+    <div v-for="cat in categoriasFiltradas" :key="cat" class="categoria">
       <h3>{{ cat.replaceAll("_", " ") }}</h3>
 
       <div v-for="plato in store.menu[cat]" :key="plato.id" class="plato">
@@ -24,10 +35,16 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useMenuStore } from "../stores/menu";
 
 const store = useMenuStore();
+const categoriaFiltro = ref("");
+
+const categoriasFiltradas = computed(() => {
+  const cats = store.categorias;
+  return categoriaFiltro.value ? cats.filter((c) => c === categoriaFiltro.value) : cats;
+});
 
 onMounted(() => {
   if (!store.categorias.length) store.cargarMenu();
@@ -110,5 +127,19 @@ h3 {
 
 .agotado {
   color: #ccc;
+}
+
+.filtro-categoria {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtro-categoria select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.95rem;
 }
 </style>

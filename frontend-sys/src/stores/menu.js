@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 
-const API = "http://10.49.145.106:8000";
-const WS = "ws://10.49.145.106:8000/ws";
+const API = "http://192.168.18.102:8000";
+const WS = "ws://192.168.18.102:8000/ws";
 
 export const useMenuStore = defineStore("menu", () => {
   // ─── Estado ────────────────────────────────────────────────────────────────

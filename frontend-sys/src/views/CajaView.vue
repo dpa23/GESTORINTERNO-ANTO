@@ -15,6 +15,17 @@
       <input v-model="busqueda" type="text" placeholder="Buscar plato..." />
     </div>
 
+    <!-- Filtro por categoría -->
+    <div class="filtro-categoria">
+      <label>Categoría:</label>
+      <select v-model="categoriaFiltro">
+        <option value="">Todas</option>
+        <option v-for="cat in store.categorias" :key="cat" :value="cat">
+          {{ cat.replaceAll("_", " ") }}
+        </option>
+      </select>
+    </div>
+
     <!-- Sin resultados -->
     <div v-if="!categoriasVisibles.length && !store.cargando" class="vacio">
       No se encontraron platos.
@@ -39,6 +50,7 @@ import { useMenuStore } from "../stores/menu";
 
 const store = useMenuStore();
 const busqueda = ref("");
+const categoriaFiltro = ref("");
 
 onMounted(() => {
   if (!store.categorias.length) store.cargarMenu();
@@ -47,8 +59,11 @@ onMounted(() => {
 const platosFiltrados = computed(() => {
   const texto = busqueda.value.toLowerCase().trim();
   const resultado = {};
+  const catsFiltradas = categoriaFiltro.value
+    ? store.categorias.filter((c) => c === categoriaFiltro.value)
+    : store.categorias;
 
-  for (const cat of store.categorias) {
+  for (const cat of catsFiltradas) {
     const platos = texto
       ? store.menu[cat].filter((p) => p.nombre.toLowerCase().includes(texto))
       : store.menu[cat];
@@ -142,5 +157,19 @@ h3 {
 .error {
   color: #c0392b;
   margin-bottom: 1rem;
+}
+
+.filtro-categoria {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.filtro-categoria select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.95rem;
 }
 </style>

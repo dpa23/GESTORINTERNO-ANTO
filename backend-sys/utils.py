@@ -8,6 +8,7 @@ from typing import Optional
 BASE_DIR       = os.path.dirname(os.path.abspath(__file__))
 MENU_PATH      = os.path.join(BASE_DIR, "core", "menu.json")
 REGISTROS_PATH = os.path.join(BASE_DIR, "output-back", "registros.json")
+PEDIDOS_ACT_PATH = os.path.join(BASE_DIR, "output-back", "pedidos_act.json")
 
 
 
@@ -97,5 +98,66 @@ def guardar_registro(turno: str, plato: dict, cantidad: int, mozo: str) -> None:
         "cantidad": cantidad,
     })
 
+def leer_registros() -> list:
+    if not os.path.exists(REGISTROS_PATH):
+        return []
+    with open(REGISTROS_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
     with open(REGISTROS_PATH, "w", encoding="utf-8") as f:
         json.dump(registros, f, ensure_ascii=False, indent=2)
+# ─── Pedidos Activos ───────────────────────────────────────────────────────
+def leer_pedidos_activos() -> list:
+    if not os.path.exists(PEDIDOS_ACT_PATH):
+        return []
+    with open(PEDIDOS_ACT_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+def escribir_pedidos_activos(pedidos: list) -> None:
+    os.makedirs(os.path.dirname(PEDIDOS_ACT_PATH), exist_ok=True)
+    with open(PEDIDOS_ACT_PATH, "w", encoding="utf-8") as f:
+        json.dump(pedidos, f, ensure_ascii=False, indent=2)
+
+
+def agregar_pedido_activo(turno: str, mozo: str, plato: dict, cantidad: int) -> dict:
+    pedidos = leer_pedidos_activos()
+    ahora   = datetime.now()
+
+    # ID único basado en timestamp
+    pedido_id = int(ahora.timestamp() * 1000)
+
+    nuevo = {
+        "pedido_id": pedido_id,
+        "fecha":     ahora.strftime("%Y-%m-%d"),
+        "hora":      ahora.strftime("%H:%M"),
+        "turno":     turno,
+        "mozo":      mozo,
+        "nombre":    plato["nombre"],
+        "cantidad":  cantidad,
+        "estado":    "pendiente",   # pendiente | listo
+    }
+
+    pedidos.append(nuevo)
+    escribir_pedidos_activos(pedidos)
+    return nuevo
+
+def actualizar_pedido_activo(pedido_id: int, updates: dict) -> Optional[dict]:
+    pedidos = leer_pedidos_activos()
+    pedido  = next((p for p in pedidos if p["pedido_id"] == pedido_id), None)
+
+    if pedido is None:
+        return None
+
+    pedido.update(updates)
+    escribir_pedidos_activos(pedidos)
+    return pedido
+
+def vaciar_pedidos_activos() -> None:
+    escribir_pedidos_activos([])
+
+def eliminar_pedido_activo(pedido_id: int) -> bool:
+    pedidos = leer_pedidos_activos()
+    nuevos  = [p for p in pedidos if p["pedido_id"] != pedido_id]
+    if len(nuevos) == len(pedidos):
+        return False
+    escribir_pedidos_activos(nuevos)
+    return True
+

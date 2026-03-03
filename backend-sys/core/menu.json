@@ -16,7 +16,7 @@
     {
       "id": 1,
       "nombre": "Huevos apaltados",
-      "disponibles": 1,
+      "disponibles": 0,
       "tiempo_preparacion": null
     },
     {
@@ -78,7 +78,7 @@
     {
       "id": 11,
       "nombre": "Jugo de papaya 200ml",
-      "disponibles": 0,
+      "disponibles": 1,
       "tiempo_preparacion": null
     },
     {
@@ -110,7 +110,7 @@
     {
       "id": 16,
       "nombre": "Asado con pure y verduras",
-      "disponibles": 0,
+      "disponibles": 1,
       "tiempo_preparacion": null
     }
   ],
@@ -172,25 +172,25 @@
     {
       "id": 25,
       "nombre": "Empanada ají de gallina",
-      "disponibles": 6,
+      "disponibles": 7,
       "tiempo_preparacion": null
     },
     {
       "id": 26,
       "nombre": "Empanada de carne",
-      "disponibles": 9,
+      "disponibles": 10,
       "tiempo_preparacion": null
     },
     {
       "id": 27,
       "nombre": "Empanada de queso",
-      "disponibles": 0,
+      "disponibles": 10,
       "tiempo_preparacion": null
     },
     {
       "id": 28,
       "nombre": "Empanada de alcachofa",
-      "disponibles": 8,
+      "disponibles": 4,
       "tiempo_preparacion": null
     }
   ],
@@ -204,13 +204,13 @@
     {
       "id": 30,
       "nombre": "Sandwich de lomito ahumado",
-      "disponibles": 7,
+      "disponibles": 2,
       "tiempo_preparacion": null
     },
     {
       "id": 31,
       "nombre": "Sandwich de asado",
-      "disponibles": 0,
+      "disponibles": 1,
       "tiempo_preparacion": null
     },
     {
@@ -274,13 +274,13 @@
     {
       "id": 41,
       "nombre": "Pastel de choclo con queso",
-      "disponibles": 7,
+      "disponibles": 6,
       "tiempo_preparacion": null
     },
     {
       "id": 42,
       "nombre": "Lasagna bolognesa",
-      "disponibles": 9,
+      "disponibles": 1,
       "tiempo_preparacion": null
     }
   ],
@@ -558,7 +558,7 @@
     {
       "id": 87,
       "nombre": "Chicha morada",
-      "disponibles": 1,
+      "disponibles": 0,
       "tiempo_preparacion": null
     },
     {

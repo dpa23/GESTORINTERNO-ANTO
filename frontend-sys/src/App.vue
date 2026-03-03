@@ -5,6 +5,8 @@
       <RouterLink to="/cocina"> Cocina </RouterLink>
       <RouterLink to="/camarero"> Camarero </RouterLink>
       <RouterLink to="/caja"> Caja </RouterLink>
+      <RouterLink to="/pedidos"> Pedidos </RouterLink>
+      <RouterLink to="/gerencia"> Gerencia </RouterLink>
     </nav>
 
     <div class="turno" v-if="store.turnoActivo">
